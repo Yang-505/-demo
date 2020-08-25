@@ -1,29 +1,38 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 
+const Parent = () => import('@/views/parent')
+
+const Test = () => import('@/views/test')
+const Children = () => import('@/views/children')
+const Eventbus = () => import('@/views/EventBus')
 Vue.use(VueRouter)
-
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
-
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  routes: [
+    {
+      path: '/',
+      redirect: '/parent'
+    }
+    , {
+      path: "/parent",
+      component: Parent,
+      children: [
+        {
+          path: '/children',
+          component: Children
+        },
+      ]
+    },
+    {
+      path: '/eventbus',
+      component: Eventbus
+    },
+    // 测试代码
+    {
+      path: '/test',
+      component: Test
+    }
+  ]
 })
 
-export default router
+export default router 

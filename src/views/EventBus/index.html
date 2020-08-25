@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="button" id="btn" value="获取验证码">
+    <script type="text/javascript">
+        var countdown = 60
+        function tiem(o) {
+            if (countdown == 0) {
+                o.removeAttribute("disabled");
+                o.value = "获取验证码";
+                countdown = 60
+            } else {
+                console.log(1);
+
+                o.setAttribute ("disabled", true);
+                o.value = "重新发送(" + countdown + ")";
+                countdown--;
+                setTimeout(() => {
+                    tiem(o)
+                }, 1000)
+            }
+        }
+        document.getElementById("btn").onclick = function () { tiem(this) }
+    </script>
+</body>
+
+</html>
